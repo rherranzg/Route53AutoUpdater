@@ -1,0 +1,20 @@
+{
+  "Comment": "Deletes DNS record for <%= @fqdn %>",
+  "Changes": [
+    {
+      "Action": "DELETE",
+      "ResourceRecordSet": {
+        "Name": "<%= @hostname %>-<%= scope['::ENV'] %>.<%= scope.lookupvar('route53::domain') %>",
+        "Type": "A",
+        "SetIdentifier": "<%= @hostname %>-<%= scope['::ENV'] %>.<%= scope.lookupvar('route53::domain') %>",
+        "Region": "eu-west-1",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "<%= @ec2_public_ipv4 %>"
+          }
+        ]
+      }
+    }
+  ]
+}

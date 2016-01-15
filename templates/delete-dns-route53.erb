@@ -1,0 +1,14 @@
+#!/bin/bash --login
+ 
+# This script will delete the hostname from Route53 on shutdown of the machine
+#
+ 
+# Make sure only root can run our script
+if [ "$(id -u)" != "0" ]; then
+echo "This script must be run as root" 1>&2
+exit 1
+fi
+
+/usr/bin/aws route53 change-resource-record-sets --hosted-zone-id <%= scope.lookupvar('route53::hosted_zone_id') %> --change-batch file:///tmp/template_deletion.json
+
+#<% end %>
